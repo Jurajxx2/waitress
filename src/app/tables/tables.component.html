@@ -1,0 +1,13 @@
+<h2>Tables</h2>
+<div>
+  <button (click)="add()">add</button>
+</div>
+<ul class="tables">
+  <li *ngFor="let table of tables">
+  	<a routerLink="/tables/{{table.id}}">
+  	  <span class="badge">{{table.id}}</span> {{table.name}}
+  	</a>
+    <button class="delete" title="delete table" (click)="delete(table)">x</button>
+  </li>
+</ul>
+

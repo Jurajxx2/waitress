@@ -1,0 +1,24 @@
+<div *ngIf="product">
+	<h2>{{product.id}}. {{product.name}}</h2>
+	<div>
+	  <label>Name:
+	    <input [(ngModel)]="product.name" placeholder="Name">
+	  </label>
+	  <label>Price:
+	    <input type="number" [(ngModel)]="product.price" placeholder="Price">
+	  </label>
+	  <label>Code:
+	    <input type="number" [(ngModel)]="product.code" placeholder="Code">
+	  </label>
+	  <label>Show as favourite:
+	    <input type="checkbox" [(ngModel)]="product.isTop" placeholder="isTop">
+	  </label>
+	  <label>Category:
+	    <select [(ngModel)]="product.category">
+	    	<option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
+	    </select>
+	  </label>
+	</div>
+	<button (click)="save()">save</button>
+	<button (click)="goBack()">go back</button>
+</div>

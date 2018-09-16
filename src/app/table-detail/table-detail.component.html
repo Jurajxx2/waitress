@@ -1,0 +1,20 @@
+<div *ngIf="table">
+	<h2>Table {{table.id}}</h2>
+	<div><span>id: </span>{{table.id}}</div>
+	<div>
+	  <label>Name:
+	    <input [(ngModel)]="table.name" placeholder="Name">
+	  </label>
+	  <label>Is empty:
+	    <input type="checkbox" [(ngModel)]="table.isOccupied" placeholder="Is empty">
+	  </label>
+	  <label>Is outside:
+	    <input type="checkbox" [(ngModel)]="table.outside" placeholder="Is outside">
+	  </label>
+	  <label>Is visible:
+	    <input type="checkbox" [(ngModel)]="table.visible" placeholder="Is Visible">
+	  </label>
+	</div>
+	<button (click)="save()">save</button>
+	<button (click)="goBack()">go back</button>
+</div>

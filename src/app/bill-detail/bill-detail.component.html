@@ -1,0 +1,81 @@
+<div *ngIf="bill">
+	<div>
+	  <div class="row">
+  			<div class="column">
+  				<h3>Add new order</h3>
+				<div class="row">
+	  				<h4>Top products</h4>
+	  				<div class="grid grid-pad">
+	  					<ng-container *ngFor="let product of products">
+						  	<a (click)="addToBill(product)" class="col-1-4" *ngIf="product.isTop">
+						  		<div class="module table">
+						  	  		{{product.name}}
+						  		</div>
+						  	</a>
+						</ng-container>
+					</div>
+				</div>
+				<div class="row">
+					<h4>All products</h4>
+					
+					<div class="grid grid-pad">
+	  					<ng-container *ngFor="let product of products">
+						  	<a (click)="addToBill(product)" class="col-1-4">
+						  		<div class="module table">
+						  	  		{{product.name}}
+						  		</div>
+						  	</a>
+						</ng-container>
+					</div>
+				</div>
+  			</div>
+
+
+  			<div class="column">
+  				<h3>Bill</h3>
+  					<div>
+						<h2>{{bill.date}}</h2>
+						<div>
+						  <div class="column-3">
+						  	<h4>Product</h4>
+						  </div>
+						  <div class="column-3">
+						  	<h4>Code</h4>
+						  </div>
+						  <div class="column-3">
+						  	<h4>Price</h4>
+						  </div>
+						  <div class="column-3">
+						  	<ng-container *ngFor="let name of bill.products">
+						  	{{name}}<br>
+						    </ng-container>
+						  </div>
+						  <div class="column-3">
+						  	<ng-container *ngFor="let code of bill.productCodes">
+						  	{{code}}<br>
+						  	</ng-container>
+						  </div>
+						  <div class="column-3">
+						  	<ng-container *ngFor="let price of bill.productsPrices">
+						  	{{price}}€<br>
+						  	</ng-container>
+						  </div>
+						  <div class="column-3"></div>
+						  <div class="column-3">
+						  	<h4>Total price:</h4>
+						  </div>
+						  <div class="column-3">
+						  	{{totalPrice}}
+						  </div>
+						</div>
+						<label>Note:
+						  <textarea [(ngModel)]="bill.note" placeholder="Note" rows="5" cols="40"></textarea>
+						</label>
+						<button (click)="save()">save</button>
+					</div>
+  			</div>
+
+  			
+		</div>
+	</div>
+</div>

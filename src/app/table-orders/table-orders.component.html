@@ -1,0 +1,163 @@
+<div *ngIf="table">
+	<h2>{{table.name}}</h2>
+	<h4>
+	  <!--<label>Is occupied:<input type="checkbox" [(ngModel)]="table.isOccupied" placeholder="Is occupied" (click)="changeState()" ></label>-->
+	<button *ngIf="!table.bill" (click)="generateBill()">Generate bill</button>
+	<button *ngIf="table.bill" (click)="removeBill()">Remove bill from table</button>
+	</h4>
+	<div>
+	  <div class="row">
+  			<div class="column">
+  				<h3>Add new order</h3>
+				<div class="row">
+	  				<h4>Top products</h4>
+	  				<div class="grid grid-pad">
+	  					<ng-container *ngFor="let product of products">
+						  	<a (click)="addToBill(product)" class="col-1-4" *ngIf="product.isTop">
+						  		<div class="module table">
+						  	  		{{product.name}}
+						  		</div>
+						  	</a>
+						</ng-container>
+					</div>
+				</div>
+				<div class="row">
+					<h4>All products</h4>
+					<ng-container *ngFor="let category of categories">
+					<div class="row">
+					<h5>{{category.name}}</h5>
+					<div class="grid grid-pad" >
+	  					<ng-container *ngFor="let product of products">
+	  						<ng-container *ngIf="product.category==category.id">
+						  	<a (click)="addToBill(product)" class="col-1-4">
+						  		<div class="module table">
+						  	  		{{product.name}}
+						  		</div>
+						  	</a>
+						  </ng-container>
+						</ng-container>
+					</div>
+					</div>
+				  </ng-container>
+				</div>
+  			</div>
+
+
+  			<div class="column">
+  				<h3>Bill</h3>
+  				<ng-container *ngIf="table.bill">
+  					<div *ngIf="bill">
+						<h2>{{bill.date}}</h2>
+						<div class="row">
+						  
+						  <ng-container *ngIf="displaySwitch">
+
+						  <div class="column-4">
+						  	<h4>Action</h4>
+						  </div>
+						  <div class="column-4">
+						  	<h4>Product</h4>
+						  </div>
+						  <div class="column-4">
+						  	<h4>Code</h4>
+						  </div>
+						  <div class="column-4">
+						  	<h4>Price</h4>
+						  </div>
+
+						  </ng-container>
+	
+						<ng-container *ngIf="!displaySwitch">
+
+						  <div class="column-5">
+						  	<h4>Action</h4>
+						  </div>
+						  <div class="column-5">
+						  	<h4>Count</h4>
+						  </div>
+						  <div class="column-5">
+						  	<h4>Product</h4>
+						  </div>
+						  <div class="column-5">
+						  	<h4>Code</h4>
+						  </div>
+						  <div class="column-5">
+						  	<h4>Price</h4>
+						  </div>
+
+						  </ng-container>
+						  
+
+						  <ng-container *ngIf="displaySwitch">
+						  	<div class="column-4">
+
+						  	<ng-container *ngFor="let code of bill.productCodes; index as i">
+						  		
+						  		<button (click)="selectProduct(i)">X</button>
+								<button (click)="plusOne(code)">+</button>
+						  		<button (click)="minusOne(i)">-</button><br>
+						  	
+						    </ng-container>
+						  </div>
+						  <div class="column-4">
+						  	<ng-container *ngFor="let name of bill.products">
+						  	{{name}}<br>
+						    </ng-container>
+						  </div>
+						  <div class="column-4">
+						  	<ng-container *ngFor="let code of bill.productCodes">
+						  	{{code}}<br>
+						  	</ng-container>
+						  </div>
+						  <div class="column-4">
+						  	<ng-container *ngFor="let price of bill.productsPrices">
+						  	{{price}}€<br>
+						  	</ng-container>
+						  </div>
+						  </ng-container>
+
+						  <ng-container *ngIf="!displaySwitch">
+						  	<div class="column-5">
+						  	<ng-container *ngFor="let code of productCodes; index as i">
+						  	<button (click)="selectProduct(i)">X</button><button (click)="plusOne(code)">+</button><button (click)="minusOne(i)">-</button><br>
+						    </ng-container>
+						  </div>
+						  <div class="column-5">
+						  	<ng-container *ngFor="let count of productCounts">
+						  	{{count}}x<br>
+						    </ng-container>
+						</div>
+						<div class="column-5">
+						  	<ng-container *ngFor="let name of productNames">
+						  	{{name}}<br>
+						    </ng-container>
+						  </div>
+						  <div class="column-5">
+						  	<ng-container *ngFor="let code of productCodes">
+						  	{{code}}<br>
+						  	</ng-container>
+						  </div>
+						  <div class="column-5">
+						  	<ng-container *ngFor="let price of productPrices">
+						  	{{price}}€<br>
+						  	</ng-container>
+						  </div>
+						  </ng-container>
+
+    					  </div>
+						  <h4>Total price: {{totalPrice}}€</h4>
+
+						<label>Note:
+						  <textarea [(ngModel)]="bill.note" placeholder="Note" rows="5" cols="40"></textarea>
+						</label>
+						<button (click)="saveBill()">save note</button>
+						<button routerLink="/pay/{{bill.id}}">pay selected</button>
+						<button routerLink="/pay/{{bill.id}}">pay all</button>
+						<button (click)="removeBill()">pay later</button>
+						<button (click)="switch()">switch view</button>
+					</div>
+  				</ng-container>
+  			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,45 @@
+<div class="row">
+<h3>Outside</h3>
+<div class="grid grid-pad">
+  <ng-container *ngFor="let table of tables">
+    <a *ngIf="table.outside && table.visible" class="col-1-4" routerLink="/detail/{{table.id}}" ngDraggable>
+      <div *ngIf="!table.bill" class="module table red">
+        <h4>{{table.name}}</h4>
+      </div>
+      <div *ngIf="table.bill" class="module table green">
+        <h4>{{table.name}}</h4>
+      </div>
+    </a>
+  </ng-container>
+</div>
+</div>
+
+<div class="row">
+<h3>Inside</h3>
+<div class="grid grid-pad">
+  <ng-container *ngFor="let table of tables">
+    <a *ngIf="!table.outside && table.visible" class="col-1-4" routerLink="/detail/{{table.id}}">
+      <div *ngIf="!table.bill" class="module table red">
+        <h4>{{table.name}}</h4>
+      </div>
+      <div *ngIf="table.bill" class="module table green">
+        <h4>{{table.name}}</h4>
+      </div>
+    </a>
+  </ng-container>
+</div>
+</div>
+
+<div class="row">
+<h3>Other bills</h3>
+<div class="grid grid-pad">
+  <ng-container *ngFor="let bill of otherBills">
+    <a class="col-1-4" routerLink="/bills/{{bill.id}}">
+      <div class="module table">
+        <h4>{{bill.date}}</h4>
+        <p>Note: {{bill.note}}</p>
+      </div>
+    </a>
+  </ng-container>
+</div>
+</div>

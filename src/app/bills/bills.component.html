@@ -1,0 +1,12 @@
+<h2>Bills</h2>
+<div>
+  
+</div>
+<ul class="bills">
+  <li *ngFor="let bill of bills">
+  	<a routerLink="/bill/{{bill.id}}">
+  	  <span class="badge">{{bill.id}}</span> {{bill.date}}
+  	</a>
+  	<button class="delete" title="delete bill" (click)="delete(bill)">x</button>
+  </li>
+</ul>
