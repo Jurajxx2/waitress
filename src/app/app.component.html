@@ -1,10 +1,27 @@
-<h1>Welcome to {{ title }}!</h1>
-<nav>
+<div class="display-inline">
+	<div tabindex="0" class="onclick-menu">
+	    <ul class="onclick-menu-content">
+	        <li><a routerLink="/dashboard">Home</a></li>
+	        <li><a routerLink="/tables">Table Management</a></li>
+	        <li><a routerLink="/products">Product Management</a></li>
+	        <li><a routerLink="/bills">Bill Management</a></li>
+	        <li><a routerLink="/categories">Categories</a></li>
+	    </ul>
+	</div>
+
+	<h1>Welcome to {{ title }}!</h1>
+</div>
+
+<nav class="classic-menu">
   <a routerLink="/dashboard">Home</a>
   <a routerLink="/tables">Table Management</a>
   <a routerLink="/products">Product Management</a>
   <a routerLink="/bills">Bill Management</a>
   <a routerLink="/categories">Categories</a>
 </nav>
+
+
+
 <router-outlet></router-outlet>
 <app-messages></app-messages>
+

@@ -5,4 +5,6 @@ export class Table {
   outside: boolean;
   visible: boolean;
   bill: number;
+  x: number;
+  y: number;
 }

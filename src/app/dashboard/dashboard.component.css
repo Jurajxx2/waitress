@@ -28,17 +28,22 @@ h4 {
   display: flow-root;
 }
 .col-1-4 {
-  width: 25%;
+  width: 100%;
 }
 .module {
   padding: 20px;
   text-align: center;
   color: #eee;
-  max-height: 120px;
-  min-width: 120px;
+  max-height: 100px;
+  max-width: 100px;
   background-color: #607d8b;
-  border-radius: 2px;
+  border-radius: 2px; 
 }
+
+.table {
+  max-width: unset;
+}
+
 .red {
   background-color: red;
 }
@@ -62,10 +67,36 @@ h4 {
     max-height: 75px; }
 }
 @media (max-width: 1024px) {
-  .grid {
-    margin: 0;
-  }
   .module {
     min-width: 60px;
   }
+}
+
+.grid-container {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.grid-content {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  text-align: center;
+  border: 1px dashed #067002;
+  text-align: center;
+  background-color: #20c997;
+}
+
+.grid-draggable {
+  z-index: 100;
+  position: absolute;
+  max-height: 100px;
+  max-width: 100px;
+  padding: 5px 5px 5px 5px;
+}
+
+.row button{
+  margin: 5px 5px 5px 5px;
 }

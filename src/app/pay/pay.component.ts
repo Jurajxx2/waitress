@@ -29,6 +29,12 @@ export class PayComponent implements OnInit {
   floatNumber: string = "00";
   isDecimal: boolean = true;
 
+  brutto = true;
+  netto = false;
+
+  bruttoAmount = 0;
+  nettoAmount = 0;
+
   ngOnInit() {
   	this.getBill();
   }
@@ -44,11 +50,10 @@ export class PayComponent implements OnInit {
 		  	conversion = this.wholeNumber + '.' + this.floatNumber;
 	  	} else {
 	  		console.log(i);
-	  		this.floatNumber += i;
+	  		this.floatNumber = this.floatNumber.charAt(1) + i;
+	  		
 		  	conversion = this.wholeNumber + "." + this.floatNumber;
 	  	}
-
-	  	
 	  	this.inputBox = conversion;
   	}
   }
@@ -71,6 +76,7 @@ export class PayComponent implements OnInit {
  	for(var i=0; i< this.bill.productsPrices.length; i++){
       this.totalPrice = this.totalPrice + this.bill.productsPrices[i];
     }
+    this.nettoAmount = this.totalPrice;
  }
 
   productCounts: number[] = [];
@@ -105,20 +111,58 @@ export class PayComponent implements OnInit {
 
   del(): void {
   	if (this.isDecimal) {
-	  	this.wholeNumber = this.wholeNumber.slice(0, this.wholeNumber.length-1);
+  		this.wholeNumber = this.wholeNumber.slice(0, this.wholeNumber.length-1);
+	  	if (this.wholeNumber == "") {
+	  		this.wholeNumber = "0"
+	  	}
 	  	this.inputBox = this.wholeNumber + "." + this.floatNumber;
   	} else {
-  		this.floatNumber = this.floatNumber.slice(0, this.floatNumber.length -1);
-
-  		if (this.floatNumber.length==0) {
-  			this.floatNumber = '00'
-  			this.isDecimal == true;
-  			this.inputBox = this.wholeNumber + "." + this.floatNumber;
-   		} else {
-   			this.inputBox = this.wholeNumber + "." + this.floatNumber;
-   		}
+  		if (this.floatNumber.charAt(1) == "0") {
+  			this.isDecimal = true;
+  			this.floatNumber = "00";
+  		} else {
+  			this.floatNumber = this.floatNumber.charAt(0) + "0";
+  		}
+  		this.inputBox = this.wholeNumber + "." + this.floatNumber;
   	}
   	
   }
 
+  payedBrutto(){
+  	if (this.netto) {
+  		this.brutto = true;
+  		this.netto = false;	
+  	}
+  	this.wholeNumber = "";
+  	this.floatNumber = "00";
+  	this.isDecimal = true;
+  	this.inputBox = this.bruttoAmount.toString();
+  }
+
+  payedNetto(){
+  	if (this.brutto) {
+  		this.brutto = false;
+  		this.netto = true;	
+  	}
+  	this.wholeNumber = "";
+  	this.floatNumber = "00";
+  	this.isDecimal = true;
+  	this.inputBox = this.nettoAmount.toString();
+  }
+
+  enter(){
+  	if (this.brutto) {
+  		this.bruttoAmount = +this.inputBox;
+  		this.payedNetto();
+  	} else if (this.netto) {
+  		this.nettoAmount = +this.inputBox;
+  	}
+  }
+
+  close(){
+  	this.bill.amountPaid = this.nettoAmount;
+  	this.bill.opened = false;
+  	this.billService.updateBill(this.bill).subscribe();
+  	
+  }
 }

@@ -17,6 +17,19 @@ export class DashboardComponent implements OnInit {
   tableBills: number[] = [];
   otherBills: Bill[] = [];
 
+  endOffset = { x: 0, y: 0 };
+
+  gridSize = 100;
+  grids = [0, 100, 200];
+
+  tablePair = { x: 0, y:0, id: 0}
+
+  outside = true;
+  inside: boolean;
+  others: boolean;
+
+  editing = false;
+
   constructor(private tableService: TableService, private billService: BillService) { }
 
   ngOnInit() {
@@ -50,5 +63,46 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
+  }
+
+  onStop(event) {
+    this.tablePair.id = event.id;
+  }
+
+  onMoveEnd(event) {
+    this.tablePair.x = event.x;
+    this.tablePair.y = event.y;
+    
+    this.changeTablePosition(this.tables[this.tablePair.id]);
+  }
+
+  changeTablePosition(table: Table){
+    table.x = this.tablePair.x;
+    table.y = this.tablePair.y;
+    console.log(table.name);
+    this.tableService.updateTable(table).subscribe();
+  }
+
+  showOutside() {
+    console.log("test");
+    this.outside = true;
+    this.inside = false;
+    this.others = false;
+  }
+
+  showInside() {
+    this.outside = false;
+    this.inside = true;
+    this.others = false;
+  }
+
+  showOthers() {
+    this.outside = false;
+    this.inside = false;
+    this.others = true;
+  }
+
+  edit() {
+    this.editing = !this.editing;
   }
 }

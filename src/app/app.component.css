@@ -28,3 +28,61 @@ nav a:hover {
 nav a.active {
   color: #039be5;
 }
+
+.onclick-menu {
+    position: relative;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-top: 10px;
+    margin: 5px 5px 5px 5px;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 4px;
+}
+.onclick-menu:before {
+    content: "Menu";
+}
+.onclick-menu:focus {
+    /* clicking on label should toggle the menu */
+    pointer-events: none;
+}
+.onclick-menu:focus .onclick-menu-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-menu-content {
+    position: absolute;
+    z-index: 1000;
+    width: 150px;
+    background-color: #eee;
+    border-radius: 4px;
+    margin: 5px 5px 5px 5px;
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+.onclick-menu-content li {
+  padding: 5px 5px 5px 5px;
+}
+
+.display-inline {
+  display: inline-flex;
+}
+
+@media only screen and (min-width: 1000px) {
+    .onclick-menu{
+      display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .classic-menu{
+      display: none;
+    }
+}

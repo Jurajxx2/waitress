@@ -53,8 +53,10 @@
 		</div>
 	</div>
 	<div class="column">
-		<button (click)="payedBrutto()">PAYED BRUTTO</button>
-		<button (click)="payetNetto()">PAYED NETTO</button>
+		
+		<h2>Back: {{bruttoAmount - nettoAmount}}€</h2>
+		<h2>Brutto: {{bruttoAmount}}€</h2>
+		<h2>Netto/bill: {{nettoAmount}}€</h2>
 
 		<input type="number" value="{{inputBox}}" disabled>
 
@@ -74,7 +76,12 @@
 		    <input id="btndot" type="button" (click)="input('.')" value="." />
 		    <input id="btn0" type="button" (click)="input('0')" value="0" />
 		    <input id="btnDel" type="button" value="Backspace" (click)="del();" />
+		    <br />
+		    <input id="btn8" type="button" (click)="payedBrutto()" value="Brutto" />
+		    <input id="btn9" type="button" (click)="payedNetto()" value="Netto" />
+		    <input id="btn9" type="button" (click)="enter()" value="Enter" />
+		    <br />
+		    <input routerLink="/dashboard" id="close" type="button" (click)="close()" value="Close" />
 		</div>
-
 	</div>
 </div>

@@ -1,36 +1,60 @@
-<div class="row">
-<h3>Outside</h3>
-<div class="grid grid-pad">
-  <ng-container *ngFor="let table of tables">
-    <a *ngIf="table.outside && table.visible" class="col-1-4" routerLink="/detail/{{table.id}}" ngDraggable>
-      <div *ngIf="!table.bill" class="module table red">
-        <h4>{{table.name}}</h4>
-      </div>
-      <div *ngIf="table.bill" class="module table green">
-        <h4>{{table.name}}</h4>
-      </div>
-    </a>
-  </ng-container>
-</div>
+  	<div class="row">
+	  <button (click)="showOutside()">Outside</button>
+	  <button (click)="showInside()">Inside</button>
+	  <button (click)="showOthers()">Others</button>
+	  <button (click)="edit()" *ngIf="!editing">Edit</button>
+	  <button (click)="edit()" *ngIf="editing">Save</button>	
+	</div>
+	
+<div class="row" *ngIf="outside">
+	<h3>Outside</h3>
+	<div #myBounds class="grid-container">
+		<ng-container *ngFor="let table of tables; index as i" >
+		    <a *ngIf="table.outside && table.visible" id="{{i}}" [position]="{x: table.x, y: table.y}" class="grid-draggable" routerLink="/detail/{{table.id}}" [ngDraggable]="editing" [bounds]="myBounds" [inBounds]="true" [gridSize]="gridSize" [zIndex]="100" [preventDefaultEvent]="editing" (endOffset)="onMoveEnd($event)" (stopped)="onStop($event)">
+
+		      <div *ngIf="!table.bill" class="module table red">
+		        <h4>{{table.name}}</h4>
+		      </div>
+		      <div *ngIf="table.bill" class="module table green">
+		        <h4>{{table.name}}</h4>
+		      </div>
+
+			</a>
+		  </ng-container>
+		<div *ngFor="let x of grids">
+		    <div *ngFor="let y of grids">
+			  <div [ngDraggable]="false" [position]="{x: x, y: y }" [preventDefaultEvent]="true" class="grid-content">
+		        <small>grid</small>
+		      </div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class="row">
-<h3>Inside</h3>
-<div class="grid grid-pad">
-  <ng-container *ngFor="let table of tables">
-    <a *ngIf="!table.outside && table.visible" class="col-1-4" routerLink="/detail/{{table.id}}">
-      <div *ngIf="!table.bill" class="module table red">
-        <h4>{{table.name}}</h4>
-      </div>
-      <div *ngIf="table.bill" class="module table green">
-        <h4>{{table.name}}</h4>
-      </div>
-    </a>
-  </ng-container>
-</div>
+<div class="row" *ngIf="inside">
+	<h3>Inside</h3>
+	<div #inside class="grid-container">
+		<ng-container *ngFor="let table of tables; index as i" >
+		    <a *ngIf="!table.outside && table.visible" id="{{i}}" [position]="{x: table.x, y: table.y}" class="grid-draggable" routerLink="/detail/{{table.id}}" [ngDraggable]="editing" [bounds]="inside" [inBounds]="true" [gridSize]="gridSize" [zIndex]="100" [preventDefaultEvent]="editing" (endOffset)="onMoveEnd($event)" (stopped)="onStop($event)">
+		      <div *ngIf="!table.bill" class="module table red">
+		        <h4>{{table.name}}</h4>
+		      </div>
+		      <div *ngIf="table.bill" class="module table green">
+		        <h4>{{table.name}}</h4>
+		      </div>
+		    </a>
+	  	</ng-container>
+		<div *ngFor="let x of grids">
+		    <div *ngFor="let y of grids">
+			  <div [ngDraggable]="false" [position]="{x: x, y: y }" [preventDefaultEvent]="true" class="grid-content">
+		        <small>grid</small>
+		      </div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="others">
 <h3>Other bills</h3>
 <div class="grid grid-pad">
   <ng-container *ngFor="let bill of otherBills">

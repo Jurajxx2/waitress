@@ -94,5 +94,9 @@ h4 {
 
 #virtualKey input {
   width: 100px;
-  height: 100px;
+  height: 50px;
+}
+
+#virtualKey input#close{
+  width: 300px;
 }
